@@ -12,32 +12,6 @@ class User_mode:
         self.open_main_page()
     
     def open_main_page(self):
-        ctk.set_appearance_mode("dark")  # Modes: system (default), light, dark
-        ctk.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
-        
-        
-        self.app = ctk.CTk()  # creating custom tkinter window
-        #self.app.geometry("700x540")
-        self.app.title('CO-PO')
-         # Get screen width and height
-        # screen_width = self.app.winfo_screenwidth()
-        # screen_height = self.app.winfo_screenheight()
-       
-        screen_width=1500
-        screen_height=800
-       
-        # Calculate the coordinates for centering the window
-        x_position = 0
-        y_position = 0
-        
-        # Set the window position and size
-        self.app.geometry(f"{screen_width}x{screen_height}+{x_position}+{y_position}")
-        
-        self.main_frame = ctk.CTkFrame(master=self.app)
-        self.main_frame.pack(expand=True, fill="both", padx=10, pady=10)
-        self.main_frame.columnconfigure(1, weight=1)
-        self.main_frame.rowconfigure(2, weight=1)
-
         def switch():
             tabview.set(" CO Mapping ")
         
@@ -170,31 +144,6 @@ class User_mode:
                 q8TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
                 q9TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
                 q10TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-               
-        tabview = ctk.CTkTabview(self.main_frame,corner_radius=20)
-        tabview.pack(expand=True, fill="both", padx=10, pady=5)
-
-        tabview.add(" Instructions ") 
-        tabview.add(" Basic Information ")  # add tab at the end
-       
-        tabview.add(" CO Mapping ")
-        tabview.add(" Upload Excel File ")  # add tab at the end
-        tabview.set(" Basic Information ")  # set currently visible tab
-
-        button = ctk.CTkButton(master=tabview.tab(" Basic Information "),text=" Next ",font=("Arial",20),command=switch)
-        button.place(x=725,y=600)
-        
-        label0=ctk.CTkLabel(master=tabview.tab(" Basic Information "),text="Basic Details",font=("Arial",20))
-        label0.place(x=725,y=5)
-        
-        label1=ctk.CTkLabel(master=tabview.tab(" Basic Information "),text="No of Students :",font=("Arial",15))
-        label1.place(x=200,y=55)
-        
-        entry1=ctk.CTkEntry(master=tabview.tab(" Basic Information "),placeholder_text="Enter no of students",font=("Arial",15),width=300)
-        entry1.place(x=400,y=55)
-        
-        newLabel= ctk.CTkLabel(master= tabview.tab(" Basic Information "), text="Select year :", font=("Arial",15))
-        newLabel.place(x = 200, y = 105)
 
         def semester(option):
             if option == "I":
@@ -223,6 +172,83 @@ class User_mode:
                 entry3.configure(values=["AI and DS – II", "Internet of Everything", "Department Optional Course – 3", "Department Optional Course – 4", "Institute Optional Course – 1"])
             elif option == "VIII":
                 entry3.configure(values=["Blockchain and DLT", "Department Optional Course – 5", "Department Optional Course – 6", "Institute Optional Course – 2"])
+
+        def disable(option):
+            if option == "3":
+                entry15.configure(state="normal", fg_color=["#3B8ED0", "#1F6AA5"])
+                q1TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q2TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q3TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q4TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q5TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q6TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q7TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q8TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q9TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q10TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+
+                # nptelCA3Text.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+            else:
+                entry15.configure(state="disabled", fg_color='gray')
+                q1TCA3.configure(state="disabled", fg_color="gray")
+                q2TCA3.configure(state="disabled", fg_color="gray")
+                q3TCA3.configure(state="disabled", fg_color="gray")
+                q4TCA3.configure(state="disabled", fg_color="gray")
+                q5TCA3.configure(state="disabled", fg_color="gray")
+                q6TCA3.configure(state="disabled", fg_color="gray")
+                q7TCA3.configure(state="disabled", fg_color="gray")
+                q8TCA3.configure(state="disabled", fg_color="gray")
+                q9TCA3.configure(state="disabled", fg_color="gray")
+                q10TCA3.configure(state="disabled", fg_color="gray")
+
+                nptelCA3Text.configure(state="disabled", fg_color="gray") 
+                
+        ctk.set_appearance_mode("dark")  # Modes: system (default), light, dark
+        ctk.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
+        
+        
+        self.app = ctk.CTk()  # creating custom tkinter window
+        self.app.title('CO-PO')
+       
+        screen_width=1500
+        screen_height=800
+       
+        # Calculate the coordinates for centering the window
+        x_position = 0
+        y_position = 0
+        
+        # Set the window position and size
+        self.app.geometry(f"{screen_width}x{screen_height}+{x_position}+{y_position}")
+        
+        self.main_frame = ctk.CTkFrame(master=self.app)
+        self.main_frame.pack(expand=True, fill="both", padx=10, pady=10)
+        self.main_frame.columnconfigure(1, weight=1)
+        self.main_frame.rowconfigure(2, weight=1)
+               
+        tabview = ctk.CTkTabview(self.main_frame,corner_radius=20)
+        tabview.pack(expand=True, fill="both", padx=10, pady=5)
+
+        tabview.add(" Instructions ") 
+        tabview.add(" Basic Information ")  # add tab at the end
+       
+        tabview.add(" CO Mapping ")
+        tabview.add(" Upload Excel File ")  # add tab at the end
+        tabview.set(" Basic Information ")  # set currently visible tab
+
+        button = ctk.CTkButton(master=tabview.tab(" Basic Information "),text=" Next ",font=("Arial",20),command=switch)
+        button.place(x=725,y=600)
+        
+        label0=ctk.CTkLabel(master=tabview.tab(" Basic Information "),text="Basic Details",font=("Arial",20))
+        label0.place(x=725,y=5)
+        
+        label1=ctk.CTkLabel(master=tabview.tab(" Basic Information "),text="No of Students :",font=("Arial",15))
+        label1.place(x=200,y=55)
+        
+        entry1=ctk.CTkEntry(master=tabview.tab(" Basic Information "),placeholder_text="Enter no of students",font=("Arial",15),width=300)
+        entry1.place(x=400,y=55)
+        
+        newLabel= ctk.CTkLabel(master= tabview.tab(" Basic Information "), text="Select year :", font=("Arial",15))
+        newLabel.place(x = 200, y = 105)
 
         yearDropDown = ctk.CTkOptionMenu(master=tabview.tab(" Basic Information "),values=["I","II","III","IV"],font=("Arial",15),width=300,command=semester)
         yearDropDown.place(x=400,y=105)
@@ -262,6 +288,12 @@ class User_mode:
     
         entry8=ctk.CTkEntry(master=tabview.tab(" Basic Information "),placeholder_text="Information Technology",font=("Arial",15),width=300)
         entry8.place(x=1075,y=55)
+
+        label10=ctk.CTkLabel(master=tabview.tab(" Basic Information "),text="No. of CA's :",font=("Arial",15))
+        label10.place(x=875,y=205)
+    
+        entry10=ctk.CTkOptionMenu(master=tabview.tab(" Basic Information "),values=["2", "3"],font=("Arial",15),width=300,command=disable)
+        entry10.place(x=1075,y=205)
         
         label11=ctk.CTkLabel(master=tabview.tab(" Basic Information "),text="EndSem CO's :",font=("Arial",15))
         label11.place(x=875,y=105)
@@ -633,44 +665,6 @@ class User_mode:
         #         q2bT.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
         #         q3aT.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
         #         q3bT.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-        
-        def disable(option):
-            if option == "3":
-                entry15.configure(state="normal", fg_color=["#3B8ED0", "#1F6AA5"])
-                q1TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-                q2TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-                q3TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-                q4TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-                q5TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-                q6TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-                q7TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-                q8TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-                q9TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-                q10TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-
-                # nptelCA3Text.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
-            else:
-                entry15.configure(state="disabled", fg_color='gray')
-                q1TCA3.configure(state="disabled", fg_color="gray")
-                q2TCA3.configure(state="disabled", fg_color="gray")
-                q3TCA3.configure(state="disabled", fg_color="gray")
-                q4TCA3.configure(state="disabled", fg_color="gray")
-                q5TCA3.configure(state="disabled", fg_color="gray")
-                q6TCA3.configure(state="disabled", fg_color="gray")
-                q7TCA3.configure(state="disabled", fg_color="gray")
-                q8TCA3.configure(state="disabled", fg_color="gray")
-                q9TCA3.configure(state="disabled", fg_color="gray")
-                q10TCA3.configure(state="disabled", fg_color="gray")
-
-                nptelCA3Text.configure(state="disabled", fg_color="gray") 
-
-                
-                
-        label10=ctk.CTkLabel(master=tabview.tab(" Basic Information "),text="No. of CA's :",font=("Arial",15))
-        label10.place(x=875,y=205)
-    
-        entry10=ctk.CTkOptionMenu(master=tabview.tab(" Basic Information "),values=["2", "3"],font=("Arial",15),width=300,command=disable)
-        entry10.place(x=1075,y=205)
         
         def upload_file():
             file_path = filedialog.askopenfilename(filetypes=[("Excel files", "*.xlsx")])
