@@ -112,6 +112,64 @@ class User_mode:
                 q8TCA1.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
                 q9TCA1.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
                 q10TCA1.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+
+        def ca2(option):
+            if option == "NPTEL Course" or option == "Presentation":
+                q1TCA2.configure(state="disabled", fg_color="gray")
+                q2TCA2.configure(state="disabled", fg_color="gray")
+                q3TCA2.configure(state="disabled", fg_color="gray")
+                q4TCA2.configure(state="disabled", fg_color="gray")
+                q5TCA2.configure(state="disabled", fg_color="gray")
+                q6TCA2.configure(state="disabled", fg_color="gray")
+                q7TCA2.configure(state="disabled", fg_color="gray")
+                q8TCA2.configure(state="disabled", fg_color="gray")
+                q9TCA2.configure(state="disabled", fg_color="gray")
+                q10TCA2.configure(state="disabled", fg_color="gray")
+
+                nptelCA2Text.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+
+            else:
+                nptelCA2Text.configure(state="disabled", fg_color="gray") 
+
+                q1TCA2.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q2TCA2.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q3TCA2.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q4TCA2.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q5TCA2.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q6TCA2.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q7TCA2.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q8TCA2.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q9TCA2.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q10TCA2.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+
+        def ca3(option):
+            if option == "NPTEL Course" or option == "Presentation":
+                q1TCA3.configure(state="disabled", fg_color="gray")
+                q2TCA3.configure(state="disabled", fg_color="gray")
+                q3TCA3.configure(state="disabled", fg_color="gray")
+                q4TCA3.configure(state="disabled", fg_color="gray")
+                q5TCA3.configure(state="disabled", fg_color="gray")
+                q6TCA3.configure(state="disabled", fg_color="gray")
+                q7TCA3.configure(state="disabled", fg_color="gray")
+                q8TCA3.configure(state="disabled", fg_color="gray")
+                q9TCA3.configure(state="disabled", fg_color="gray")
+                q10TCA3.configure(state="disabled", fg_color="gray")
+
+                nptelCA3Text.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+
+            else:
+                nptelCA3Text.configure(state="disabled", fg_color="gray") 
+
+                q1TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q2TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q3TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q4TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q5TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q6TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q7TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q8TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q9TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                q10TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
                
         tabview = ctk.CTkTabview(self.main_frame,corner_radius=20)
         tabview.pack(expand=True, fill="both", padx=10, pady=5)
@@ -226,13 +284,13 @@ class User_mode:
         label14=ctk.CTkLabel(master=tabview.tab(" Basic Information "),text="CA2 type :",font=("Arial",15))
         label14.place(x=875,y=305)
     
-        entry14=ctk.CTkOptionMenu(master=tabview.tab(" Basic Information "),values=["Quiz", "NPTEL Course", "Presentation"],font=("Arial",15),width=300)
+        entry14=ctk.CTkOptionMenu(master=tabview.tab(" Basic Information "),values=["Quiz", "NPTEL Course", "Presentation"],font=("Arial",15),width=300,command=ca2)
         entry14.place(x=1075,y=305)
         
         label15=ctk.CTkLabel(master=tabview.tab(" Basic Information "),text="CA3 type :",font=("Arial",15))
         label15.place(x=875,y=355)
     
-        entry15=ctk.CTkOptionMenu(master=tabview.tab(" Basic Information "),values=["Quiz", "NPTEL Course", "Presentation"],font=("Arial",15),width=300, state="disabled", fg_color='gray')
+        entry15=ctk.CTkOptionMenu(master=tabview.tab(" Basic Information "),values=["Quiz", "NPTEL Course", "Presentation"],font=("Arial",15),width=300, state="disabled", fg_color='gray', command=ca3)
         entry15.place(x=1075,y=355)
 
         nptel = ctk.CTkLabel(master=tabview.tab(" Basic Information "), text="CO's for NPTEL/Presentation (CA)", font=("Arial", 20))
@@ -242,18 +300,21 @@ class User_mode:
         nptelCA1Label.place(x=100, y=500)
 
         nptelCA1Text = ctk.CTkEntry(master=tabview.tab(" Basic Information "), placeholder_text="1,2,3,4,5,6", font=("Arial", 15), width=300)
+        nptelCA1Text.configure(state="disabled", fg_color="gray")
         nptelCA1Text.place(x=200, y=500)
 
         nptelCA2Label = ctk.CTkLabel(master=tabview.tab(" Basic Information "), text="CA2: ", font=("Arial", 15))
         nptelCA2Label.place(x=550, y=500)
 
         nptelCA2Text = ctk.CTkEntry(master=tabview.tab(" Basic Information "), placeholder_text="1,2,3,4,5,6", font=("Arial", 15), width=300)
+        nptelCA2Text.configure(state="disabled", fg_color="gray")
         nptelCA2Text.place(x=650, y=500)
 
         nptelCA3Label = ctk.CTkLabel(master=tabview.tab(" Basic Information "), text="CA3: ", font=("Arial", 15))
         nptelCA3Label.place(x=1000, y=500)
 
         nptelCA3Text = ctk.CTkEntry(master=tabview.tab(" Basic Information "), placeholder_text="1,2,3,4,5,6", font=("Arial", 15), width=300)
+        nptelCA3Text.configure(state="disabled", fg_color="gray")
         nptelCA3Text.place(x=1100, y=500)
         
         label6=ctk.CTkLabel(master=tabview.tab(" CO Mapping "),text="COs for Midterm",font=("Arial",20))
@@ -457,60 +518,70 @@ class User_mode:
         q1LCA3.place(x=850,y=380)
     
         q1TCA3=ctk.CTkEntry(master=tabview.tab(" CO Mapping "),placeholder_text="1,2,3,4,5,6",font=("Arial",15),width=150)
+        q1TCA3.configure(state="disabled", fg_color="gray")
         q1TCA3.place(x=900,y=380)
         
         q2LCA3=ctk.CTkLabel(master=tabview.tab(" CO Mapping "),text="Q2 :",font=("Arial",15))
         q2LCA3.place(x=850,y=430)
     
         q2TCA3=ctk.CTkEntry(master=tabview.tab(" CO Mapping "),placeholder_text="1,2,3,4,5,6",font=("Arial",15),width=150)
+        q2TCA3.configure(state="disabled", fg_color="gray")
         q2TCA3.place(x=900,y=430)
         
         q3LCA3=ctk.CTkLabel(master=tabview.tab(" CO Mapping "),text="Q3 :",font=("Arial",15))
         q3LCA3.place(x=850,y=480)
     
         q3TCA3=ctk.CTkEntry(master=tabview.tab(" CO Mapping "),placeholder_text="1,2,3,4,5,6",font=("Arial",15),width=150)
+        q3TCA3.configure(state="disabled", fg_color="gray")
         q3TCA3.place(x=900,y=480)
         
         q4LCA3=ctk.CTkLabel(master=tabview.tab(" CO Mapping "),text="Q4 :",font=("Arial",15))
         q4LCA3.place(x=850,y=530)
     
         q4TCA3=ctk.CTkEntry(master=tabview.tab(" CO Mapping "),placeholder_text="1,2,3,4,5,6",font=("Arial",15),width=150)
+        q4TCA3.configure(state="disabled", fg_color="gray")
         q4TCA3.place(x=900,y=530)
     
         q5LCA3=ctk.CTkLabel(master=tabview.tab(" CO Mapping "),text="Q5 :",font=("Arial",15))
         q5LCA3.place(x=850,y=580)
 
         q5TCA3=ctk.CTkEntry(master=tabview.tab(" CO Mapping "),placeholder_text="1,2,3,4,5,6",font=("Arial",15),width=150)
+        q5TCA3.configure(state="disabled", fg_color="gray")
         q5TCA3.place(x=900,y=580)
         
         q6LCA3=ctk.CTkLabel(master=tabview.tab(" CO Mapping "),text="Q6 :",font=("Arial",15))
         q6LCA3.place(x=1150,y=380)
 
         q6TCA3=ctk.CTkEntry(master=tabview.tab(" CO Mapping "),placeholder_text="1,2,3,4,5,6",font=("Arial",15),width=150)
+        q6TCA3.configure(state="disabled", fg_color="gray")
         q6TCA3.place(x=1200,y=380)
         
         q7LCA3=ctk.CTkLabel(master=tabview.tab(" CO Mapping "),text="Q7 :",font=("Arial",15))
         q7LCA3.place(x=1150,y=430)
     
         q7TCA3=ctk.CTkEntry(master=tabview.tab(" CO Mapping "),placeholder_text="1,2,3,4,5,6",font=("Arial",15),width=150)
+        q7TCA3.configure(state="disabled", fg_color="gray")
         q7TCA3.place(x=1200,y=430)
         
         q8LCA3=ctk.CTkLabel(master=tabview.tab(" CO Mapping "),text="Q8 :",font=("Arial",15))
         q8LCA3.place(x=1150,y=480)
     
         q8TCA3=ctk.CTkEntry(master=tabview.tab(" CO Mapping "),placeholder_text="1,2,3,4,5,6",font=("Arial",15),width=150)
+        q8TCA3.configure(state="disabled", fg_color="gray")
         q8TCA3.place(x=1200,y=480)
         
         q9LCA3=ctk.CTkLabel(master=tabview.tab(" CO Mapping "),text="Q9 :",font=("Arial",15))
         q9LCA3.place(x=1150,y=530)
     
         q9TCA3=ctk.CTkEntry(master=tabview.tab(" CO Mapping "),placeholder_text="1,2,3,4,5,6",font=("Arial",15),width=150)
+        q9TCA3.configure(state="disabled", fg_color="gray")
         q9TCA3.place(x=1200,y=530)
         
         q10LCA3=ctk.CTkLabel(master=tabview.tab(" CO Mapping "),text="Q10 :",font=("Arial",15))
         q10LCA3.place(x=1150,y=580)
     
         q10TCA3=ctk.CTkEntry(master=tabview.tab(" CO Mapping "),placeholder_text="1,2,3,4,5,6",font=("Arial",15),width=150)
+        q10TCA3.configure(state="disabled", fg_color="gray")
         q10TCA3.place(x=1200,y=580)
         
 
@@ -577,7 +648,7 @@ class User_mode:
                 q9TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
                 q10TCA3.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
 
-                nptelCA3Text.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
+                # nptelCA3Text.configure(state="normal", fg_color=["#F9F9FA", "#343638"])
             else:
                 entry15.configure(state="disabled", fg_color='gray')
                 q1TCA3.configure(state="disabled", fg_color="gray")
