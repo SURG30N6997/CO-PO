@@ -2,17 +2,22 @@ import openpyxl
 from openpyxl.styles import Alignment,Font
 from openpyxl.styles.borders import Border,Side
 from openpyxl import Workbook
-def template_gen(array,array1):
-    workbook=Workbook() 
 
+def template_gen(basic_values_temp,midSem_Co_values_temp,CA1_Co_arr_temp,CA2_Co_arr_temp,CA3_Co_arr_temp):
+    workbook=Workbook() 
+    print("Number of CAs:", basic_values_temp[10])
     sheet1 = workbook.active
     sheet1.title = "Midsem"
 
     sheet2=workbook.create_sheet(title="Endsem")
-    sheet3=workbook.create_sheet(title="CA")
-    sheet4=workbook.create_sheet(title="Quiz")
+    sheet3=workbook.create_sheet(title="CA1")
+    sheet4=workbook.create_sheet(title="CA2")
+    if basic_values_temp[10]=="3":
+        sheet7=workbook.create_sheet(title="CA3")
+        print("Created")
     sheet5=workbook.create_sheet(title="Survey")
     sheet6=workbook.create_sheet(title='Attainment')
+    
     
     sheet1.column_dimensions['A'].width = 42
     sheet1.merge_cells("A1:O1")
@@ -20,24 +25,24 @@ def template_gen(array,array1):
 
     
     sheet1.merge_cells("A2:O2")
-    sheet1["A2"].value="Department of "+array[16]+""
+    sheet1["A2"].value="Department of "+basic_values_temp[1]+""
 
     sheet1.merge_cells("A3:O3")
-    sheet1["A3"].value="Academic Year :"+array[3]+""
+    sheet1["A3"].value="Academic Year :"+basic_values_temp[5]+""
     
     sheet1.merge_cells("A4:O4")
     
     sheet1.merge_cells("A5:O5")
-    sheet1["A5"].value="  Subject : "+array[1]+"                                                                                                                                                                       Class : "+array[15]+""
+    sheet1["A5"].value="  Subject : "+basic_values_temp[4]+"                                                                                                                                                                       Class : "+basic_values_temp[7]+""
 
 
     sheet1.merge_cells("A6:O6")
-    sheet1["A6"].value="  Subject Teacher :"+array[4]+"                                                                                                                                                                Semester : "+array[2]+""
+    sheet1["A6"].value="  Subject Teacher :"+basic_values_temp[6]+"                                                                                                                                                                Semester : "+basic_values_temp[3]+""
   
     
 
     sheet1.merge_cells("A7:O7")
-    sheet1["A7"].value="Number of Students ="+array[0]+""
+    sheet1["A7"].value="Number of Students ="+basic_values_temp[0]+""
 
     sheet1["A8"]="Roll Nos."
     sheet1["B8"]="1a"
@@ -56,22 +61,22 @@ def template_gen(array,array1):
     sheet1["O8"]="Total"
 
     sheet1["A9"]="COs"
-    sheet1["B9"]="CO"+array[5]+""
-    sheet1["C9"]="CO"+array[6]+""
-    sheet1["D9"]="CO"+array[7]+""
-    sheet1["E9"]="CO"+array[8]+""
-    sheet1["F9"]="CO"+array[9]+""
-    sheet1["G9"]="CO"+array[10]+""
+    sheet1["B9"]="CO"+midSem_Co_values_temp[0]+""
+    sheet1["C9"]="CO"+midSem_Co_values_temp[1]+""
+    sheet1["D9"]="CO"+midSem_Co_values_temp[2]+""
+    sheet1["E9"]="CO"+midSem_Co_values_temp[3]+""
+    sheet1["F9"]="CO"+midSem_Co_values_temp[4]+""
+    sheet1["G9"]="CO"+midSem_Co_values_temp[5]+""
     # sheet1["H9"]=""
-    sheet1["I9"]="CO"+array[11]+""
-    sheet1["J9"]="CO"+array[12]+""
+    sheet1["I9"]="CO"+midSem_Co_values_temp[6]+""
+    sheet1["J9"]="CO"+midSem_Co_values_temp[7]+""
     # sheet1["K9"]=""
-    sheet1["L9"]="CO"+array[13]+""
-    sheet1["M9"]="CO"+array[14]+""
+    sheet1["L9"]="CO"+midSem_Co_values_temp[8]+""
+    sheet1["M9"]="CO"+midSem_Co_values_temp[9]+""
     # sheet1["N9"]=""
     sheet1["O9"]=20
 
-    total_roll=int(array[0])
+    total_roll=int(basic_values_temp[0])
     for i in range(1,total_roll+1):
         sheet1[f'A{i+9}']=i
         sheet1[f'A{i+9}'].alignment= Alignment(horizontal='center', vertical='center')
@@ -110,11 +115,11 @@ def template_gen(array,array1):
     
     sheet1[f'A{total_roll+10}'] = 'Count(Attempted)'
     sheet1[f'A{total_roll+11}'] = 'Average Marks'
-    sheet1[f'A{total_roll+12}'] = f'Count(>={array[19]}%)'
-    sheet1[f'A{total_roll+13}'] = f'% Count(>={array[19]}% w.r.t appeared)'
+    sheet1[f'A{total_roll+12}'] = f'Count(>={basic_values_temp[9]}%)'
+    sheet1[f'A{total_roll+13}'] = f'% Count(>={basic_values_temp[9]}% w.r.t appeared)'
     sheet1[f'A{total_roll+14}'] = 'Count(>=Average Marks of class)'
     sheet1[f'A{total_roll+15}']= "% Count(>=Average Marks of class w.r.t appeared)"
-    sheet1[f'A{total_roll+16}'] = f'AL(Based on >={array[19]}% Count) (All COs)'
+    sheet1[f'A{total_roll+16}'] = f'AL(Based on >={basic_values_temp[9]}% Count) (All COs)'
     
     sheet1[f'F{total_roll+19}'] = "COs"
     sheet1[f'F{total_roll+19}'].font=Font(bold=True)
@@ -143,29 +148,25 @@ def template_gen(array,array1):
     sheet2['B1'].font=Font(bold=True)     
     sheet2['B2']="ALL Qs"
     sheet2['B2'].font=Font(bold=True) 
-    sheet2['B3']="CO"+array[18]+""
+    sheet2['B3']="CO"+basic_values_temp[8]+""
     sheet2['B3'].font=Font(bold=True) 
     
     for i in range(1,total_roll+1):
         sheet2[f'A{i+3}'] =i
-        # sheet2[f'A{i+3}'].alignment= Alignment(horizontal='center', vertical='center')
-        # sheet2[f'B{i+3}'].alignment= Alignment(horizontal='center', vertical='center')     
-        # sheet2[f'A{i+3}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
-        # sheet2[f'B{i+3}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
-
+       
     
     sheet2[f'A{total_roll+4}']="Count(Attempted)"
     sheet2[f'A{total_roll+5}']="Average Marks"
     
    
-    sheet2[f'A{total_roll+6}']=f"Count(>={array[19]}%)"
+    sheet2[f'A{total_roll+6}']=f"Count(>={basic_values_temp[9]}%)"
     
-    sheet2[f'A{total_roll+7}']=f"% Count(>={array[19]}% w.r.t appeared)"
+    sheet2[f'A{total_roll+7}']=f"% Count(>={basic_values_temp[9]}% w.r.t appeared)"
     
     sheet2[f'A{total_roll+8}']="Count(>=Average Marks of class)"
     sheet2[f'A{total_roll+9}']="% Count(>=Average Marks of class w.r.t appeared)"
     
-    sheet2[f'A{total_roll+10}']=f"AL(Based on >={array[19]}% Count) (All COs)"
+    sheet2[f'A{total_roll+10}']=f"AL(Based on >={basic_values_temp[9]}% Count) (All COs)"
     sheet2[f'A{total_roll+10}'].font=Font(bold=True) 
     sheet2[f'B{total_roll+10}'].font=Font(bold=True)
     
@@ -194,162 +195,313 @@ def template_gen(array,array1):
         sheet2[f'A{i}'].alignment= Alignment(horizontal='center', vertical='center')
         sheet2[f'B{i}'].alignment= Alignment(horizontal='center', vertical='center')
         
-    #<-----------CA Template------------->  
-    
-    sheet3.column_dimensions['A'].width = 42
-    sheet3.merge_cells("A1:D1")
-    sheet3.merge_cells("A2:D2")
-    sheet3.merge_cells("A3:D3")
-    sheet3['A2']="CA Marksheet"
-    sheet3['A2'].font=Font(bold=True)
-    sheet3['A4']="Roll No."
-    sheet3['A4'].font=Font(bold=True)
-    sheet3['B4']="CA1"
-    sheet3['B4'].font=Font(bold=True)
-    sheet3['C4']="CA2"
-    sheet3['C4'].font=Font(bold=True)
-    sheet3['D4']="CA3"
-    sheet3['D4'].font=Font(bold=True)
-    sheet3['B5']="CO"+array1[0]+""
-    sheet3['B5'].font=Font(bold=True)
-    sheet3['C5']="CO"+array1[1]+""
-    sheet3['C5'].font=Font(bold=True)
-    sheet3['D5']="CO"+array1[2]+""
-    sheet3['D5'].font=Font(bold=True)
-    
-    for i in range(1 ,total_roll+1):
-        sheet3[f'A{i+5}']=i
-     
-    sheet3[f'A{total_roll+6}']="Count(Attempted)"
-    sheet3[f'A{total_roll+7}']="Average Marks"
-    
    
-    sheet3[f'A{total_roll+8}']=f"Count(>={array[19]}%)"
     
-    
-    sheet3[f'A{total_roll+9}']=f"% Count(>={array[19]}% w.r.t appeared)"
-    
-    sheet3[f'A{total_roll+10}']="Count(>=Average Marks of class)"
-    sheet3[f'A{total_roll+11}']="% Count(>=Average Marks of class w.r.t appeared)"
-    
-    sheet3[f'A{total_roll+12}']=f"AL(Based on >={array[19]}% Count) (All COs)"
-    sheet3[f'A{total_roll+12}'].font=Font(bold=True)
-     
-    for i in range(1,total_roll+13):
-        sheet3[f'A{i}'].alignment= Alignment(horizontal='center', vertical='center')     
-        sheet3[f'A{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
-        sheet3[f'B{i}'].alignment= Alignment(horizontal='center', vertical='center')     
-        sheet3[f'B{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
-        sheet3[f'C{i}'].alignment= Alignment(horizontal='center', vertical='center')     
-        sheet3[f'C{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
-        sheet3[f'D{i}'].alignment= Alignment(horizontal='center', vertical='center')     
-        sheet3[f'D{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
+    def make_CA_Type_PPT_NPTEL(mysheet2,arr):
+        mysheet2.column_dimensions['A'].width = 42
+        mysheet2.column_dimensions['B'].width = 16
+        mysheet2.merge_cells("A1:B1")
+        mysheet2.merge_cells("A2:B2")
+        mysheet2.merge_cells("A3:B3")
+        mysheet2['A2']="CA Marksheet"
+        mysheet2['A2'].font=Font(bold=True)
+        mysheet2['A4']="Roll No."
+        mysheet2['A4'].font=Font(bold=True)
+        mysheet2['B4']="CA1"
+        mysheet2['B4'].font=Font(bold=True)
+        mysheet2['B5']="CO"+arr[0]+""
+        mysheet2['B5'].font=Font(bold=True)
         
-        if i>=total_roll+6 :
-            sheet3[f'A{i}'].alignment= Alignment(horizontal='left', vertical='center') 
-     
-    for i in range(total_roll+15,total_roll+22):
-        sheet3[f'B{i}'].alignment= Alignment(horizontal='center', vertical='center')     
-        sheet3[f'B{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
-        sheet3[f'C{i}'].alignment= Alignment(horizontal='center', vertical='center')     
-        sheet3[f'C{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
+        for i in range(1 ,total_roll+1):
+            mysheet2[f'A{i+5}']=i
         
-    sheet3[f'B{total_roll+15}'] = "COs"
-    sheet3[f'B{total_roll+15}'].font=Font(bold=True)
-    sheet3[f'C{total_roll+15}'] = "AL"
-    sheet3[f'C{total_roll+15}'].font=Font(bold=True)
-    sheet3[f'B{total_roll+16}'] = 'CO1'
-    sheet3[f'B{total_roll+17}'] = 'CO2'
-    sheet3[f'B{total_roll+18}'] = 'CO3'
-    sheet3[f'B{total_roll+19}'] = 'CO4'
-    sheet3[f'B{total_roll+20}'] = 'CO5'
-    sheet3[f'B{total_roll+21}'] = 'CO6' 
+        mysheet2[f'A{total_roll+6}']="Count(Attempted)"
+        mysheet2[f'A{total_roll+7}']="Average Marks"
+        
     
-    #<-----------Quiz Template------------->  
-    
-    sheet4.column_dimensions['B'].width =42
-    sheet4['A1']="Roll No."
-    sheet4['B1']="Name"
-    sheet4['C1']="Q1"
-    sheet4['D1']="Q2"
-    sheet4['E1']="Q3"
-    sheet4['F1']="Q4"
-    sheet4['G1']="Q5"
-    sheet4['H1']="Q6"
-    sheet4['I1']="Q7"
-    sheet4['J1']="Q8"
-    sheet4['K1']="Q9"
-    sheet4['L1']="Q10"
-    
-    for i in range(1,3):
-        for col in  ['A','B', 'C', 'D', 'E', 'F', 'G','H','I', 'J','K','L'] :
-            sheet4[f'{col}{i}'].font=Font(bold=True)
+        mysheet2[f'A{total_roll+8}']=f"Count(>={basic_values_temp[9]}%)"
+        
+        
+        mysheet2[f'A{total_roll+9}']=f"% Count(>={basic_values_temp[9]}% w.r.t appeared)"
+        
+        mysheet2[f'A{total_roll+10}']="Count(>=Average Marks of class)"
+        mysheet2[f'A{total_roll+11}']="% Count(>=Average Marks of class w.r.t appeared)"
+        
+        mysheet2[f'A{total_roll+12}']=f"AL(Based on >={basic_values_temp[9]}% Count) (All COs)"
+        mysheet2[f'A{total_roll+12}'].font=Font(bold=True)
+        
+        for i in range(1,total_roll+13):
+            mysheet2[f'A{i}'].alignment= Alignment(horizontal='center', vertical='center')     
+            mysheet2[f'A{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
+            mysheet2[f'B{i}'].alignment= Alignment(horizontal='center', vertical='center')     
+            mysheet2[f'B{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
+           
+            if i>=total_roll+6 :
+                mysheet2[f'A{i}'].alignment= Alignment(horizontal='left', vertical='center') 
+        
+        for i in range(total_roll+15,total_roll+22):
+            mysheet2[f'B{i}'].alignment= Alignment(horizontal='center', vertical='center')     
+            mysheet2[f'B{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
+            mysheet2[f'C{i}'].alignment= Alignment(horizontal='center', vertical='center')     
+            mysheet2[f'C{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
             
-    sheet4.merge_cells('A2:B2')
-    sheet4['C2']="CO"+array1[3]+""
-    sheet4['D2']="CO"+array1[4]+""
-    sheet4['E2']="CO"+array1[5]+""
-    sheet4['F2']="CO"+array1[6]+""
-    sheet4['G2']="CO"+array1[7]+""
-    sheet4['H2']="CO"+array1[8]+""
-    sheet4['I2']="CO"+array1[9]+""
-    sheet4['J2']="CO"+array1[10]+""
-    sheet4['K2']="CO"+array1[11]+""
-    sheet4['L2']="CO"+array1[12]+"" 
+        mysheet2[f'B{total_roll+15}'] = "COs"
+        mysheet2[f'B{total_roll+15}'].font=Font(bold=True)
+        mysheet2[f'C{total_roll+15}'] = "AL"
+        mysheet2[f'C{total_roll+15}'].font=Font(bold=True)
+        mysheet2[f'B{total_roll+16}'] = 'CO1'
+        mysheet2[f'B{total_roll+17}'] = 'CO2'
+        mysheet2[f'B{total_roll+18}'] = 'CO3'
+        mysheet2[f'B{total_roll+19}'] = 'CO4'
+        mysheet2[f'B{total_roll+20}'] = 'CO5'
+        mysheet2[f'B{total_roll+21}'] = 'CO6' 
     
-    for i in range(1 ,total_roll+1):
-        sheet4[f'A{i+2}']=i
-     
-    for i in range(total_roll+3,total_roll+11) :
-        sheet4.merge_cells(f'A{i}:B{i}')
+    def make_CA_Type_Quiz(mysheet,ca_array):
+        temp=len(ca_array)
+        # mysheet=sheet4
         
-    for i in range(1,total_roll+10):
-        for col in ['A','B', 'C', 'D', 'E', 'F', 'G','H','I', 'J','K','L'] :
-            sheet4[f'{col}{i}'].alignment= Alignment(horizontal='center', vertical='center')     
-            sheet4[f'{col}{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
-            if i>total_roll+2 :
-                sheet4[f'{col}{i}'].alignment= Alignment(horizontal='left', vertical='center')     
+        mysheet.column_dimensions['B'].width =42
+        mysheet['A1']="Roll No."
+        mysheet['B1']="Name"
+        
+        if temp==1 :
+            mysheet['C1']="Q1"
+            mysheet['C2']="CO"+ca_array[0]+""
+            myArr=['A','B', 'C']
+        
+        elif temp==2:
+            mysheet['C1']="Q1"
+            mysheet['D1']="Q2"
             
-    for i in range(total_roll+3,total_roll+10):
-        for col in ['C', 'D', 'E', 'F', 'G','H','I', 'J','K','L'] :
-            sheet4[f'{col}{i}'].alignment= Alignment(horizontal='center', vertical='center')     
-            sheet4[f'{col}{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
-        if i==total_roll+9:
-            sheet4[f'{col}{i}'].font=Font(bold=True)        
-               
-   
-    sheet4[f'A{total_roll+3}']="Count(Attempted)"       
-    sheet4[f'A{total_roll+4}']="Average Marks"
+            mysheet['C2']="CO"+ca_array[0]+""
+            mysheet['D2']="CO"+ca_array[1]+""
+            myArr=['A','B', 'C', 'D']
+            
+        elif temp==3:
+            mysheet['C1']="Q1"
+            mysheet['D1']="Q2"
+            mysheet['E1']="Q3"
+            
+            mysheet['C2']="CO"+ca_array[0]+""
+            mysheet['D2']="CO"+ca_array[1]+""
+            mysheet['E2']="CO"+ca_array[2]+""
+            myArr=['A','B', 'C', 'D', 'E']
+            
+        elif temp==4:
+            mysheet['C1']="Q1"
+            mysheet['D1']="Q2"
+            mysheet['E1']="Q3"
+            mysheet['F1']="Q4"
+            
+            mysheet['C2']="CO"+ca_array[0]+""
+            mysheet['D2']="CO"+ca_array[1]+""
+            mysheet['E2']="CO"+ca_array[2]+""
+            mysheet['F2']="CO"+ca_array[3]+""
+            myArr=['A','B', 'C', 'D', 'E', 'F']
+            
+        elif temp==5:
+            mysheet['C1']="Q1"
+            mysheet['D1']="Q2"
+            mysheet['E1']="Q3"
+            mysheet['F1']="Q4"
+            mysheet['G1']="Q5"
+            
+            mysheet['C2']="CO"+ca_array[0]+""
+            mysheet['D2']="CO"+ca_array[1]+""
+            mysheet['E2']="CO"+ca_array[2]+""
+            mysheet['F2']="CO"+ca_array[3]+""
+            mysheet['G2']="CO"+ca_array[4]+""
+            myArr=['A','B', 'C', 'D', 'E', 'F', 'G']
+            
+        elif temp==6:
+            mysheet['C1']="Q1"
+            mysheet['D1']="Q2"
+            mysheet['E1']="Q3"
+            mysheet['F1']="Q4"
+            mysheet['G1']="Q5"
+            mysheet['H1']="Q6"
+            
+            mysheet['C2']="CO"+ca_array[0]+""
+            mysheet['D2']="CO"+ca_array[1]+""
+            mysheet['E2']="CO"+ca_array[2]+""
+            mysheet['F2']="CO"+ca_array[3]+""
+            mysheet['G2']="CO"+ca_array[4]+""
+            mysheet['H2']="CO"+ca_array[5]+""
+            myArr=['A','B', 'C', 'D', 'E', 'F', 'G','H']
+            
+        elif temp==7:
+            mysheet['C1']="Q1"
+            mysheet['D1']="Q2"
+            mysheet['E1']="Q3"
+            mysheet['F1']="Q4"
+            mysheet['G1']="Q5"
+            mysheet['H1']="Q6"
+            mysheet['I1']="Q7"
+            
+            mysheet['C2']="CO"+ca_array[0]+""
+            mysheet['D2']="CO"+ca_array[1]+""
+            mysheet['E2']="CO"+ca_array[2]+""
+            mysheet['F2']="CO"+ca_array[3]+""
+            mysheet['G2']="CO"+ca_array[4]+""
+            mysheet['H2']="CO"+ca_array[5]+""
+            mysheet['I2']="CO"+ca_array[6]+""
+            myArr=['A','B', 'C', 'D', 'E', 'F', 'G','H','I']
+            
+        elif temp==8:
+            mysheet['C1']="Q1"
+            mysheet['D1']="Q2"
+            mysheet['E1']="Q3"
+            mysheet['F1']="Q4"
+            mysheet['G1']="Q5"
+            mysheet['H1']="Q6"
+            mysheet['I1']="Q7"
+            mysheet['J1']="Q8"
+            
+            mysheet['C2']="CO"+ca_array[0]+""
+            mysheet['D2']="CO"+ca_array[1]+""
+            mysheet['E2']="CO"+ca_array[2]+""
+            mysheet['F2']="CO"+ca_array[3]+""
+            mysheet['G2']="CO"+ca_array[4]+""
+            mysheet['H2']="CO"+ca_array[5]+""
+            mysheet['I2']="CO"+ca_array[6]+""
+            mysheet['J2']="CO"+ca_array[7]+""
+            myArr=['A','B', 'C', 'D', 'E', 'F', 'G','H','I', 'J']
+            
+        elif temp==9:
+            mysheet['C1']="Q1"
+            mysheet['D1']="Q2"
+            mysheet['E1']="Q3"
+            mysheet['F1']="Q4"
+            mysheet['G1']="Q5"
+            mysheet['H1']="Q6"
+            mysheet['I1']="Q7"
+            mysheet['J1']="Q8"
+            mysheet['K1']="Q9"
+            
+            mysheet['C2']="CO"+ca_array[0]+""
+            mysheet['D2']="CO"+ca_array[1]+""
+            mysheet['E2']="CO"+ca_array[2]+""
+            mysheet['F2']="CO"+ca_array[3]+""
+            mysheet['G2']="CO"+ca_array[4]+""
+            mysheet['H2']="CO"+ca_array[5]+""
+            mysheet['I2']="CO"+ca_array[6]+""
+            mysheet['J2']="CO"+ca_array[7]+""
+            mysheet['K2']="CO"+ca_array[8]+""
+            myArr=['A','B', 'C', 'D', 'E', 'F', 'G','H','I', 'J','K']
+            
+        else:
+            mysheet['C1']="Q1"
+            mysheet['D1']="Q2"
+            mysheet['E1']="Q3"
+            mysheet['F1']="Q4"
+            mysheet['G1']="Q5"
+            mysheet['H1']="Q6"
+            mysheet['I1']="Q7"
+            mysheet['J1']="Q8"
+            mysheet['K1']="Q9"
+            mysheet['L1']="Q10"
+            
+            mysheet['C2']="CO"+ca_array[0]+""
+            mysheet['D2']="CO"+ca_array[1]+""
+            mysheet['E2']="CO"+ca_array[2]+""
+            mysheet['F2']="CO"+ca_array[3]+""
+            mysheet['G2']="CO"+ca_array[4]+""
+            mysheet['H2']="CO"+ca_array[5]+""
+            mysheet['I2']="CO"+ca_array[6]+""
+            mysheet['J2']="CO"+ca_array[7]+""
+            mysheet['K2']="CO"+ca_array[8]+""
+            mysheet['L2']="CO"+ca_array[9]+"" 
+            myArr=['A','B', 'C', 'D', 'E', 'F', 'G','H','I', 'J','K','L']
+        
+        
+        for i in range(1,3):
+            for col in  ['A','B', 'C', 'D', 'E', 'F', 'G','H','I', 'J','K','L'] :
+                mysheet[f'{col}{i}'].font=Font(bold=True)
+                
+        mysheet.merge_cells('A2:B2')
+        
+        
+        for i in range(1 ,total_roll+1):
+            mysheet[f'A{i+2}']=i
+        
+        for i in range(total_roll+3,total_roll+11) :
+            mysheet.merge_cells(f'A{i}:B{i}')
+            
+        for i in range(1,total_roll+10):
+            for j,col in enumerate(myArr[:temp+2]) :
+                mysheet[f'{col}{i}'].alignment= Alignment(horizontal='center', vertical='center')     
+                mysheet[f'{col}{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
+                if i>total_roll+2 :
+                    mysheet[f'{col}{i}'].alignment= Alignment(horizontal='left', vertical='center')     
+                
+        for i in range(total_roll+3,total_roll+10):
+            start_index=1
+            for j, col in enumerate(myArr[start_index:temp+2],start=start_index+1) :
+                mysheet[f'{col}{i}'].alignment= Alignment(horizontal='center', vertical='center')     
+                mysheet[f'{col}{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
+            if i==total_roll+9:
+                mysheet[f'{col}{i}'].font=Font(bold=True)        
+                
     
-   
-    sheet4[f'A{total_roll+5}']=f"Count(>={array[19]}%)"
+        mysheet[f'A{total_roll+3}']="Count(Attempted)"       
+        mysheet[f'A{total_roll+4}']="Average Marks"
+        
     
-    
-    sheet4[f'A{total_roll+6}']=f"% Count(>={array[19]}% w.r.t appeared)"
+        mysheet[f'A{total_roll+5}']=f"Count(>={basic_values_temp[9]}%)"
+        
+        
+        mysheet[f'A{total_roll+6}']=f"% Count(>={basic_values_temp[9]}% w.r.t appeared)"
 
-    sheet4[f'A{total_roll+7}']="Count(>=Average Marks of class)"
-    sheet4[f'A{total_roll+8}']="% Count(>=Average Marks of class w.r.t appeared)"
-    
-    sheet4[f'A{total_roll+9}']=f"AL(Based on >={array[19]}% Count) (All COs)"
-    sheet4[f'A{total_roll+9}'].font=Font(bold=True)
-    
-    for i in range(total_roll+12,total_roll+19):
-        sheet4[f'C{i}'].alignment= Alignment(horizontal='center', vertical='center')     
-        sheet4[f'C{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
-        sheet4[f'D{i}'].alignment= Alignment(horizontal='center', vertical='center')     
-        sheet4[f'D{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
+        mysheet[f'A{total_roll+7}']="Count(>=Average Marks of class)"
+        mysheet[f'A{total_roll+8}']="% Count(>=Average Marks of class w.r.t appeared)"
         
-    sheet4[f'C{total_roll+12}'] = "COs"
-    sheet4[f'C{total_roll+12}'].font=Font(bold=True)
-    sheet4[f'D{total_roll+12}'] = "AL"
-    sheet4[f'D{total_roll+12}'].font=Font(bold=True)
-    sheet4[f'C{total_roll+13}'] = 'CO1'
-    sheet4[f'C{total_roll+14}'] = 'CO2'
-    sheet4[f'C{total_roll+15}'] = 'CO3'
-    sheet4[f'C{total_roll+16}'] = 'CO4'
-    sheet4[f'C{total_roll+17}'] = 'CO5'
-    sheet4[f'C{total_roll+18}'] = 'CO6' 
+        mysheet[f'A{total_roll+9}']=f"AL(Based on >={basic_values_temp[9]}% Count) (All COs)"
+        mysheet[f'A{total_roll+9}'].font=Font(bold=True)
+        
+        for i in range(total_roll+12,total_roll+19):
+            mysheet[f'C{i}'].alignment= Alignment(horizontal='center', vertical='center')     
+            mysheet[f'C{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
+            mysheet[f'D{i}'].alignment= Alignment(horizontal='center', vertical='center')     
+            mysheet[f'D{i}'].border=Border(top=Side(style='thin',color='000000'),right=Side(style='thin',color='000000'),left=Side(style='thin',color='000000'),bottom=Side(style='thin',color='000000'))
+            
+        mysheet[f'C{total_roll+12}'] = "COs"
+        mysheet[f'C{total_roll+12}'].font=Font(bold=True)
+        mysheet[f'D{total_roll+12}'] = "AL"
+        mysheet[f'D{total_roll+12}'].font=Font(bold=True)
+        mysheet[f'C{total_roll+13}'] = 'CO1'
+        mysheet[f'C{total_roll+14}'] = 'CO2'
+        mysheet[f'C{total_roll+15}'] = 'CO3'
+        mysheet[f'C{total_roll+16}'] = 'CO4'
+        mysheet[f'C{total_roll+17}'] = 'CO5'
+        mysheet[f'C{total_roll+18}'] = 'CO6' 
     
+    print(basic_values_temp[10])       
+    if basic_values_temp[10]=="2":
+        if basic_values_temp[11]=="Quiz":
+            make_CA_Type_Quiz(sheet3,CA1_Co_arr_temp)
+        else :
+            make_CA_Type_PPT_NPTEL(sheet3,CA1_Co_arr_temp)
+        print("Hello",basic_values_temp[10]) 
+        if basic_values_temp[12]=="Quiz":
+            make_CA_Type_Quiz(sheet4,CA2_Co_arr_temp)
+        else :
+            make_CA_Type_PPT_NPTEL(sheet4,CA2_Co_arr_temp)
+    elif basic_values_temp[10]=="3":
+        if basic_values_temp[11]=="Quiz":
+            make_CA_Type_Quiz(sheet3,CA1_Co_arr_temp)
+        else :
+            make_CA_Type_PPT_NPTEL(sheet3,CA1_Co_arr_temp)
+        print("Hi",basic_values_temp[10]) 
+        if basic_values_temp[12]=="Quiz":
+            make_CA_Type_Quiz(sheet4,CA2_Co_arr_temp)
+        else :
+            make_CA_Type_PPT_NPTEL(sheet4,CA2_Co_arr_temp) 
+             
+        if basic_values_temp[13]=="Quiz":
+            make_CA_Type_Quiz(sheet7,CA3_Co_arr_temp)
+        else :
+            make_CA_Type_PPT_NPTEL(sheet7,CA3_Co_arr_temp) 
+        print("Hi",basic_values_temp[13])   
     #<-----------Survey Template------------->
     sheet5.column_dimensions['B'].width =40
     sheet5.column_dimensions['C'].width =40
@@ -373,8 +525,8 @@ def template_gen(array,array1):
             
     for i in range(1 ,total_roll+1):
         sheet5[f'A{i+1}']=i
-        sheet5[f'E{i+1}']=""+array[15]+""
-        sheet5[f'F{i+1}']=""+array[16]+""
+        sheet5[f'E{i+1}']=""+basic_values_temp[7]+""
+        sheet5[f'F{i+1}']=""+basic_values_temp[1]+""
         
     for i in range(1,total_roll+2):
         for col in ['A','B', 'C', 'D', 'E', 'F', 'G','H','I', 'J','K','L'] :
@@ -433,16 +585,16 @@ def template_gen(array,array1):
     sheet6["A1"].value="Vivekanand Education Society's Institute of Technology"
     sheet6["A1"].alignment= Alignment(horizontal='center', vertical='center')     
     
-    sheet6["A2"].value="Department of "+array[16]+""
+    sheet6["A2"].value="Department of "+basic_values_temp[1]+""
     sheet6["A2"].alignment= Alignment(horizontal='center', vertical='center')     
     
-    sheet6["A3"].value="Academic Year :"+array[3]+""
+    sheet6["A3"].value="Academic Year :"+basic_values_temp[5]+""
     sheet6["A3"].alignment= Alignment(horizontal='center', vertical='center')     
     
-    sheet6["A5"].value="  Subject : "+array[1]+"                                                                                                                                                                       Class : "+array[15]+""
+    sheet6["A5"].value="  Subject : "+basic_values_temp[4]+"                                                                                                                                                                       Class : "+basic_values_temp[7]+""
     sheet6["A5"].alignment= Alignment(horizontal='left', vertical='center')     
     
-    sheet6["A6"].value="  Subject Teacher :"+array[4]+"                                                                                                                                                                Semester : "+array[2]+""
+    sheet6["A6"].value="  Subject Teacher :"+basic_values_temp[6]+"                                                                                                                                                                Semester : "+basic_values_temp[3]+""
     sheet6["A6"].alignment= Alignment(horizontal='left', vertical='center')     
     
     
@@ -595,4 +747,4 @@ def template_gen(array,array1):
     sheet6['C48'].font=Font(bold=True)
     
     
-    workbook.save('C:/Users/saira/Downloads/Template.xlsx')
+    workbook.save('C:/Users/bhush/Downloads/NewTemplate.xlsx')
